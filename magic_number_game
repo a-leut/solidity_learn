@@ -1,0 +1,32 @@
+pragma solidity >=0.4.22 <0.7.0;
+
+/**
+ * @title NumberGuessingGame
+ * @dev Prototyping number guessing
+ */
+contract NumberGuessingGame {
+    address gameRunner;
+    uint256 magicNumber;
+    bool isChosen;
+    
+    constructor() public {
+        gameRunner = msg.sender;
+        isChosen = false;
+    }
+    
+    function setMagicNumber(uint256 val) public {
+        if (!isChosen && msg.sender == gameRunner) {
+            magicNumber = val;
+            isChosen = true;
+        }
+    }
+    
+    function guessMagicNumber(uint256 val) public returns (bool) {
+        if (msg.sender != gameRunner) {
+            return val == magicNumber;
+        }
+        else {
+            return false;
+        }
+    }
+}
